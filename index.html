@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faji | Data Analyst Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f1117;
+      --ink-soft: #4b5263;
+      --ink-muted: #8b92a5;
+      --surface: #ffffff;
+      --surface-raised: #f7f8fb;
+      --border: #e4e7ef;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --excel: #217346;
+      --sql: #2563eb;
+      --powerbi: #f2c811;
+      --radius: 10px;
+      --font-display: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-display);
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-inner { max-width: 680px; }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+
+    h1 .name-highlight {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-display);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* OPEN TO WORK BADGE */
+    .otw-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #dcfce7;
+      color: #16a34a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    .otw-dot {
+      width: 7px;
+      height: 7px;
+      background: #16a34a;
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+    }
+
+    .about-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .fact-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .fact-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .fact-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .fact-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .skill-card.excel::before { background: var(--excel); }
+    .skill-card.sql::before { background: var(--sql); }
+    .skill-card.powerbi::before { background: var(--powerbi); }
+
+    .skill-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .skill-desc {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--surface);
+    }
+
+    .project-card:hover {
+      box-shadow: 0 4px 24px rgba(37,99,235,0.09);
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .project-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .project-arrow {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      align-self: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stats-grid img {
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    /* CONTACT */
+    .contact-inner {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .contact-inner h2 { margin-bottom: 0.75rem; }
+
+    .contact-sub {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      .about-grid, .skills-grid, .projects-grid, .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      nav { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .contact-inner { padding: 2rem 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, .otw-dot { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">faji<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="otw-badge">
+        <span class="otw-dot"></span>
+        Open to work
+      </div>
+      <div class="hero-eyebrow">Data Analyst · Lagos, Nigeria</div>
+      <h1>Hi, I'm <span class="name-highlight">Faji</span> —<br/>I make data speak clearly.</h1>
+      <p class="hero-sub">
+        I turn raw, messy datasets into decisions people can act on. My work lives at the intersection of Excel, SQL, and Power BI — from data cleaning and modelling to dashboards that tell a story.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">View my work ↓</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">Background</div>
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a data analyst focused on the full analytics pipeline — from understanding a messy raw file to delivering a clean, interactive dashboard that stakeholders can actually use.
+        </p>
+        <p>
+          My toolkit is Excel, SQL, and Power BI. I work with real datasets, build star-schema data models, write DAX measures, and craft reports that surface the right numbers at a glance.
+        </p>
+        <p>
+          I'm actively growing my skills and looking for a role where data-driven thinking is at the centre of every decision.
+        </p>
+      </div>
+      <div class="about-facts">
+        <div class="fact-card">
+          <div class="fact-icon">📍</div>
+          <div>
+            <div class="fact-label">Location</div>
+            <div class="fact-value">Lagos, Nigeria</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🎯</div>
+          <div>
+            <div class="fact-label">Focus</div>
+            <div class="fact-value">Business Intelligence & Data Analytics</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">💼</div>
+          <div>
+            <div class="fact-label">Status</div>
+            <div class="fact-value">Open to full-time & contract roles</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">📚</div>
+          <div>
+            <div class="fact-label">Currently Learning</div>
+            <div class="fact-value">Advanced DAX & Python for data analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Toolkit</div>
+    <h2>Tools & Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card excel">
+        <div class="skill-icon">📗</div>
+        <div class="skill-name">Microsoft Excel</div>
+        <div class="skill-desc">Data cleaning, SUMIFS, VLOOKUP, pivot tables, dynamic dashboards, and star-schema modelling inside Excel.</div>
+      </div>
+      <div class="skill-card sql">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">SQL</div>
+        <div class="skill-desc">Writing queries across SELECT, JOIN, GROUP BY, subqueries, and CTEs to extract and transform data from relational databases.</div>
+      </div>
+      <div class="skill-card powerbi">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Power BI</div>
+        <div class="skill-desc">Building executive dashboards, writing DAX measures (YoY, running totals, KPIs), and connecting live data models.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Work</div>
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <a href="https://github.com/faji57" class="project-card">
+        <span class="project-tag">Excel · SQL · Power BI</span>
+        <div class="project-title">Hospital Data Analytics Assessment</div>
+        <div class="project-desc">End-to-end analytics project on a hospital dataset — data cleaning in Excel, SQL querying, and a full Power BI dashboard with KPI cards and trend visuals.</div>
+        <div class="project-arrow">View on GitHub →</div>
+      </a>
+      <a href="https://github.com/faji57" class="project-card">
+        <span class="project-tag">Excel · Power BI</span>
+        <div class="project-title">GlowMart Retail Dashboard</div>
+        <div class="project-desc">Built a star-schema data model and executive Power BI dashboard for a retail dataset, including YoY revenue measures, DAX calculations, and data quality audit.</div>
+        <div class="project-arrow">View on GitHub →</div>
+      </a>
+      <a href="https://github.com/faji57" class="project-card">
+        <span class="project-tag">SQL</span>
+        <div class="project-title">SQL Query Portfolio</div>
+        <div class="project-desc">Collection of SQL challenges and queries covering JOINs, subqueries, window functions, and aggregations across different business scenarios.</div>
+        <div class="project-arrow">View on GitHub →</div>
+      </a>
+      <a href="https://github.com/faji57" class="project-card">
+        <span class="project-tag">Power BI · DAX</span>
+        <div class="project-title">DAX Measures Library</div>
+        <div class="project-desc">A structured collection of reusable DAX measures — YoY growth, running totals, dynamic KPIs — built and tested inside live Power BI Desktop models.</div>
+        <div class="project-arrow">View on GitHub →</div>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- GITHUB STATS -->
+  <section id="stats">
+    <div class="section-label">GitHub</div>
+    <h2>Activity</h2>
+    <div class="stats-grid">
+      <img src="https://github-readme-stats.vercel.app/api?username=faji57&show_icons=true&theme=default&hide_border=true&count_private=true" alt="GitHub Stats"/>
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=faji57&hide_border=true&theme=default" alt="GitHub Streak"/>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Get in touch</div>
+      <h2>Let's work together</h2>
+      <p class="contact-sub">
+        I'm actively looking for data analyst roles. If you have a project, a position, or just want to connect — reach out.
+      </p>
+      <div class="contact-links">
+        <a href="https://github.com/faji57" class="btn btn-primary" target="_blank">GitHub Profile</a>
+        <a href="mailto:your@email.com" class="btn btn-outline">Send an email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 faji57 · Built with HTML & hosted on GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
